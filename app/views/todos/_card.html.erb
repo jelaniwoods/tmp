@@ -1,0 +1,52 @@
+<div class="card mb-3">
+  <h2 class="card-header h4">
+    Todo #<%= todo.id %>
+  </h2>
+
+  <div class="card-body">
+    <dl class="mb-1">
+      <dt>Title</dt>
+      <dd><%= todo.title %></dd>
+
+      <dt>User</dt>
+      <dd>
+        <% if @todo.user.present? %>
+          <%= link_to todo.user, todo.user %>
+        <% end %>
+      </dd>
+
+      <dt>Due on</dt>
+      <dd><%= todo.due_on %></dd>
+
+      <dt>Completed on</dt>
+      <dd><%= todo.completed_on %></dd>
+
+    </dl>
+
+    <div class="row">
+      <div class="col">
+        <%= link_to_show_or_back todo, '<i class="fas fa-search-plus"></i>'.html_safe, '<i class="fas fa-chevron-left"></i>'.html_safe, class: "btn btn-block btn-outline-secondary" %>
+      </div>
+
+      <div class="col">
+        <% if current_user == @todo.user %>
+          <%= link_to edit_todo_url(todo), class: "btn btn-block btn-sm btn-outline-secondary" do %>
+            <i class="fas fa-edit"></i>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="col">
+        <% if current_user == @todo.user %>
+          <%= link_to todo, method: :delete, data: { confirm: "Do you really want to delete this todo?" }, class: "btn btn-block btn-outline-secondary" do %>
+            <i class="fas fa-trash-alt"></i>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer text-muted">
+    Last updated <%= time_ago_in_words(todo.updated_at) %> ago
+  </div>
+</div>

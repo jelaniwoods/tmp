@@ -1,0 +1,72 @@
+<% was_validated = todo.errors.any? %>
+
+<%= form_with(model: todo, local: true, novalidate: true, class: "mb-3") do |f| %>
+  <div class="form-group">
+    <% title_class = "form-control" %>
+    <% title_was_invalid = todo.errors.include?(:title) %>
+
+    <% if was_validated %>
+      <% if title_was_invalid %>
+        <% title_class << " is-invalid" %>
+      <% else %>
+        <% title_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :title %>
+    <%= f.text_field :title, class: title_class, placeholder: "Enter title" %>
+    <% if title_was_invalid %>
+      <% todo.errors.full_messages_for(:title).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <div class="form-group">
+    <% due_on_class = "form-control" %>
+    <% due_on_was_invalid = todo.errors.include?(:due_on) %>
+
+    <% if was_validated %>
+      <% if due_on_was_invalid %>
+        <% due_on_class << " is-invalid" %>
+      <% else %>
+        <% due_on_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :due_on %>
+    <%= f.datetime_select :due_on, class: due_on_class, placeholder: "Enter due on" %>
+    <% if due_on_was_invalid %>
+      <% todo.errors.full_messages_for(:due_on).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% completed_on_class = "form-control" %>
+    <% completed_on_was_invalid = todo.errors.include?(:completed_on) %>
+
+    <% if was_validated %>
+      <% if completed_on_was_invalid %>
+        <% completed_on_class << " is-invalid" %>
+      <% else %>
+        <% completed_on_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :completed_on %>
+    <%= f.datetime_select :completed_on, class: completed_on_class, placeholder: "Enter completed on" %>
+    <% if completed_on_was_invalid %>
+      <% todo.errors.full_messages_for(:completed_on).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <%= f.button class: "btn btn-outline-secondary btn-block" %>
+<% end %>
