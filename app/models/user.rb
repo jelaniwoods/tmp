@@ -12,7 +12,7 @@ class User < ApplicationRecord
   # Scopes
 
   def to_s
-    created_at
+    email
   end
 
   # Include default devise modules. Others available are:
