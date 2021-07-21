@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   def me
     p "token -->"
     p request.headers['Authorization'].split(' ')[1]
+    p "secret key base nil?: #{Rails.application.secrets.secret_key_base.nil?}"
 
     p jwt_payload = JWT.decode(
       request.headers['Authorization'].split(' ')[1],
