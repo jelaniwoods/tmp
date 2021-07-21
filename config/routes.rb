@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     mount VandalUi::Engine, at: "/vandal"
     # your routes go here
   end
-  get "/current_user" => "users#me"
+  get "/current_user" => "users#me", :defaults => { :format => 'json' }
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   root to: "todos#index"
