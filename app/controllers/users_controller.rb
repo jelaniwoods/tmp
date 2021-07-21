@@ -17,11 +17,11 @@ class UsersController < ApplicationController
   def me
     p "token -->"
     p request.headers['Authorization'].split(' ')[1]
-    p "secret key base nil?: #{Rails.application.secrets.secret_key_base.nil?}"
+    p "secret key base nil?: #{Rails.application.secret_key_base.nil?}"
 
     p jwt_payload = JWT.decode(
       request.headers['Authorization'].split(' ')[1],
-      Rails.application.secrets.secret_key_base
+      Rails.application.secret_key_base
     ).first
     # render json: {payload: jwt_payload}.to_json
     @user = User.find(jwt_payload.fetch("id"))
